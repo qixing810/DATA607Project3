@@ -1,0 +1,58 @@
+---
+title: "Project 3 - Data Science Skills"
+author: "Wei Cai, Mia Chen, Nick Li, Isabel Ramesar"
+date: "March 24, 2019"
+output: 
+  ioslides_presentation:
+      widescreen: true
+
+---
+
+##Introduction
+
+We are asked to use data to answer the question, "Which are the most valued data science skills?"
+
+As a team we
+![As a team we](2019-03-20 09_16_30-Document1 - Word.png)
+
+##Data
+
+We obtained data from [Kaggle.com](https://www.kaggle.com/discdiver/the-most-in-demand-skills-for-data-scientists/) 
+
+Jeff Hale obtained data from online job listing sites such as LinkedIn, Indeed, SimplyHired, Monster and AngelList in the US in October 2018 using Python. When observing this data he noted how many times a keyword was mentioned by post throughout the different platforms.
+
+##Loading data
+
+```{r}
+dataskills <-read.csv("DataSkills.csv", stringsAsFactors = FALSE)
+dataskills
+```
+
+##Tidy and Wrangle
+
+We mutuated the data frame to generate two new columns `Total_Mention` and `% of Total`.
+```{r}
+library(tidyverse)
+dataskills %>% mutate(Total_Mention = sum(dataskills$LinkedIn, dataskills$Indeed,dataskills$SimplyHired,dataskills$Monster)) 
+```
+
+
+##Analysis and Visualization
+
+Word Cloud
+```{r eval=FALSE}
+library("tm")
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+wordcloud<- Corpus(VectorSource(dataskills))
+inspect(wordcloud)
+toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
+wordcloud <- tm_map(wordcloud, toSpace, "/")
+wordcloud <- tm_map(wordcloud, toSpace, "@")
+wordcloud <- tm_map(wordcloud, toSpace, "\\|")
+```
+
+##Conclusions
+
+
