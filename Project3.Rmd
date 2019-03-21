@@ -21,20 +21,58 @@ We obtained data from [Kaggle.com](https://www.kaggle.com/discdiver/the-most-in-
 
 Jeff Hale obtained data from online job listing sites such as LinkedIn, Indeed, SimplyHired, Monster and AngelList in the US in October 2018 using Python. When observing this data he noted how many times a keyword was mentioned by post throughout the different platforms.
 
+```{r}
+library(tidyverse)
+```
+
 ##Loading data
 
+Read from CSV file which was uploaded to Github
 ```{r}
-dataskills <-read.csv("DataSkills.csv", stringsAsFactors = FALSE)
-dataskills
+url <- "https://raw.githubusercontent.com/miachen410/DATA607Project3/master/DataSkills.csv"
+data_skills <-read.csv(url, stringsAsFactors = FALSE)
+data_skills
 ```
 
 ##Tidy and Wrangle
 
+First we look at the structure of the dataset
+```{r}
+str(data_skills)
+```
+
+We remove the commas in numbers and change the data types from character to numeric for columns LinkedIn, Indeed, SimplyHired and Monster
+```{r}
+data_skills$LinkedIn <- str_replace_all(data_skills$LinkedIn, ",", "") %>% as.numeric()
+data_skills$Indeed <- str_replace_all(data_skills$Indeed, ",", "") %>% as.numeric()
+data_skills$SimplyHired <- str_replace_all(data_skills$SimplyHired, ",", "") %>% as.numeric()
+data_skills$Monster <- str_replace_all(data_skills$Monster, ",", "") %>% as.numeric()
+str(data_skills)
+```
+
+We get rid of the rows we don't need by subsetting and eliminating those where LinkedIn is NA; we also exclude the row "Total" which is not a data science skill
+```{r}
+data_skills_subset <- subset(data_skills, !is.na(LinkedIn)) %>% subset(!Keyword == "Total")
+data_skills_subset
+```
+
 We mutuated the data frame to generate two new columns `Total_Mention` and `% of Total`.
 ```{r}
-library(tidyverse)
-dataskills %>% mutate(Total_Mention = sum(dataskills$LinkedIn, dataskills$Indeed,dataskills$SimplyHired,dataskills$Monster)) 
+data_skills_2 <- data_skills_subset %>% mutate(Total_Mention = LinkedIn + Indeed + SimplyHired + Monster) 
+data_skills_2
 ```
+
+We add rows "AI" and "artificial intelligence" then subtract the overlaps, assign the values to "AI + artificial intelligence"
+```{r}
+data_skills_2[18,2:6] <- data_skills_2[16,2:6] + data_skills_2[17,2:6] - data_skills_2[18,2:6]
+```
+
+We add rows "NLP" and "natural language processing" then subtract the overlaps, assign the values to "NLP + natural language processing"
+```{r}
+data_skills_2[21,2:6] <- data_skills_2[19,2:6] + data_skills_2[20,2:6] - data_skills_2[21,2:6]
+```
+
+We now remove the unnessary rows "AI", "artificial intelligence", "NLP" and "natural language processing"
 
 
 ##Analysis and Visualization
