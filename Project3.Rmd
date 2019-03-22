@@ -77,19 +77,7 @@ We then removed the unnessary rows "AI", "Artificial Intelligence", "NLP" and "N
 
 ##Analysis and Visualization
 
-Word Cloud
-```{r eval=FALSE}
-library("tm")
-library("SnowballC")
-library("wordcloud")
-library("RColorBrewer")
-wordcloud<- Corpus(VectorSource(dataskills))
-inspect(wordcloud)
-toSpace <- content_transformer(function (x , pattern ) gsub(pattern, " ", x))
-wordcloud <- tm_map(wordcloud, toSpace, "/")
-wordcloud <- tm_map(wordcloud, toSpace, "@")
-wordcloud <- tm_map(wordcloud, toSpace, "\\|")
-```
+
 
 ##Conclusions
 
