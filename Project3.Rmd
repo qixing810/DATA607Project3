@@ -10,9 +10,9 @@ output:
 
 ##Introduction
 
-We are asked to use data to answer the question, "Which are the most valued data science skills?"
+We were asked to use data to answer the question, "Which are the most valued data science skills?"
 
-As a team we
+As a team we used `Github` and `Slack` as our method of team collaboration. Within Github, we *forked*, *edited* and *commited*. Then we utilized the *blame* view to review line-by-line revision history.
 ![As a team we](2019-03-20 09_16_30-Document1 - Word.png)
 
 ##Data
