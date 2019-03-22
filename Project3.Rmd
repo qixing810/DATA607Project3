@@ -93,4 +93,10 @@ wordcloud <- tm_map(wordcloud, toSpace, "\\|")
 
 ##Conclusions
 
+We observed the top five keyword/skills mentioned by post throughout the different platforms were *Machine Learning*, *Analysis*, *Statistics*, *Computer Science* and *Communication*. These keywords/skills ranked differently across platforms.
+
+In LinkedIn, the rank was as follows: *Machine Learning*, *Analysis*, *Statistics*, *Computer Science* and *Communication*.
+In Indeed and Simply Hired, the rank was as follows: *Analysis*, *Machine Learning*, *Statistics*, *Computer Science* and *Communication*.
+In Monster, the rank was as follows: *Analysis*, *Statistics*, *Machine Learning*, *Communication* and *Computer Science*.
+
 
