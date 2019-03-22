@@ -36,12 +36,12 @@ data_skills
 
 ##Tidy and Wrangle
 
-First we look at the structure of the dataset
+First we looked at the structure of the dataset.
 ```{r}
 str(data_skills)
 ```
 
-We remove the commas in numbers and change the data types from character to numeric for columns LinkedIn, Indeed, SimplyHired and Monster
+We removed the commas in the numbers and changed the data types from character to numeric for the following columns: LinkedIn, Indeed, SimplyHired and Monster.
 ```{r}
 data_skills$LinkedIn <- str_replace_all(data_skills$LinkedIn, ",", "") %>% as.numeric()
 data_skills$Indeed <- str_replace_all(data_skills$Indeed, ",", "") %>% as.numeric()
@@ -50,7 +50,7 @@ data_skills$Monster <- str_replace_all(data_skills$Monster, ",", "") %>% as.nume
 str(data_skills)
 ```
 
-We get rid of the rows we don't need by subsetting and eliminating those where LinkedIn is NA; we also exclude the row "Total" which is not a data science skill
+We got rid of the rows we didn't need by subsetting and eliminating those in which LinkedIn was NA; we also excluded the "Total" row which was not a data science skill.
 ```{r}
 data_skills_subset <- subset(data_skills, !is.na(LinkedIn)) %>% subset(!Keyword == "Total")
 data_skills_subset
@@ -62,17 +62,17 @@ data_skills_2 <- data_skills_subset %>% mutate(Total_Mention = LinkedIn + Indeed
 data_skills_2
 ```
 
-We add rows "AI" and "artificial intelligence" then subtract the overlaps, assign the values to "AI + artificial intelligence"
+We added rows "AI" and "Artificial Intelligence" then subtracted the overlapping skills. We assigned the values to "AI + Artificial Intelligence".
 ```{r}
 data_skills_2[18,2:6] <- data_skills_2[16,2:6] + data_skills_2[17,2:6] - data_skills_2[18,2:6]
 ```
 
-We add rows "NLP" and "natural language processing" then subtract the overlaps, assign the values to "NLP + natural language processing"
+We added rows "NLP" and "Natural Language Processing" then subtracted the overlapping skills. We assigned the values to "NLP + Natural Language Processing".
 ```{r}
 data_skills_2[21,2:6] <- data_skills_2[19,2:6] + data_skills_2[20,2:6] - data_skills_2[21,2:6]
 ```
 
-We now remove the unnessary rows "AI", "artificial intelligence", "NLP" and "natural language processing"
+We then removed the unnessary rows "AI", "Artificial Intelligence", "NLP" and "Natural Language Processing".
 
 
 ##Analysis and Visualization
