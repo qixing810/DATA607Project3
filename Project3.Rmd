@@ -28,6 +28,13 @@ Jeff Hale obtained data from online job listing sites such as LinkedIn, Indeed, 
 library(tidyverse)
 library(knitr)
 library(kableExtra)
+library(tm)
+library(wordcloud)
+library(memoise)
+library(SnowballC)
+library(RColorBrewer)
+library(RCurl)
+library(XML)
 ```
 
 ##Data Load
@@ -81,9 +88,13 @@ data_skills_2[21,2:6] <- data_skills_2[19,2:6] + data_skills_2[20,2:6] - data_sk
 We then removed the unnessary rows "AI", "Artificial Intelligence", "NLP" and "Natural Language Processing".
 
 
-##Analysis and Visualization
+#Analysis and Visualization
 
-
+##Word Cloud
+```{r warning=FALSE}
+res<-rquery.wordcloud(data_skills_2, type ="file", lang = "english",
+                 min.freq = 1,  max.words = 200)]
+```
 
 ##Conclusions
 
