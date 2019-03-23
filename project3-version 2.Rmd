@@ -85,7 +85,7 @@ We added rows "NLP" and "Natural Language Processing" then subtracted the overla
 ```{r}
 data_skills_2[21,2:6] <- data_skills_2[19,2:6] + data_skills_2[20,2:6] - data_skills_2[21,2:6]
 ```
-
+##Data Mutate
 We then removed the unnecessary rows "AI", "Artificial Intelligence", "NLP" and "Natural Language Processing".
 ```{r}
 data_skills_tidy <- data_skills_2[- c(16, 17, 19, 20), ]
