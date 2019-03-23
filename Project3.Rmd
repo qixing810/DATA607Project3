@@ -21,7 +21,7 @@ As a team we used `Github` and `Slack` as our method of team collaboration. With
 
 We obtained data from [Kaggle.com](https://www.kaggle.com/discdiver/the-most-in-demand-skills-for-data-scientists/) 
 
-Jeff Hale obtained data from online job listing sites such as LinkedIn, Indeed, SimplyHired, Monster and AngelList in the US in October 2018 using Python. When observing this data he noted how many times a keyword was mentioned by post throughout the different platforms.
+Jeff Hale obtained data from online job listing sites such as LinkedIn, Indeed, SimplyHired and Monster in the US in October 2018 using Python. When observing this data he noted how many times a keyword was mentioned by post throughout the different platforms.
 
 ##Libraries
 ```{r message=FALSE, warning=FALSE}
@@ -91,9 +91,13 @@ We then removed the unnessary rows "AI", "Artificial Intelligence", "NLP" and "N
 #Analysis and Visualization
 
 ##Word Cloud
-```{r warning=FALSE}
-res<-rquery.wordcloud(data_skills_2, type ="file", lang = "english",
-                 min.freq = 1,  max.words = 200)]
+We decided to visually determine the most popular words in our data set. We used Data Science Tutorial YouTube Channel [YouTube.com](https://youtube.com/watch?v=Y2sAH0luu_l&feature=share) as a reference. 
+```{r echo=FALSE,warning=FALSE}
+Corpus<- Corpus(VectorSource(data_skills_2$Keyword))
+Corpus<- tm_map(Corpus, content_transformer(tolower))
+Corpus<- tm_map(Corpus, removeWords, stopwords())
+Corpus<- tm_map(Corpus, stripWhitespace)
+wordcloud(Corpus, min.freq = 10, colors = brewer.pal(8,"Set2"),random.order = FALSE, rot.per = .1)
 ```
 
 ##Conclusions
