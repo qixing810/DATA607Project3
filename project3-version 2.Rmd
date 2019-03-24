@@ -35,6 +35,7 @@ library(SnowballC)
 library(RColorBrewer)
 library(RCurl)
 library(XML)
+library(treemap)
 ```
 
 ##Data Load
@@ -85,7 +86,7 @@ We added rows "NLP" and "Natural Language Processing" then subtracted the overla
 ```{r}
 data_skills_2[21,2:6] <- data_skills_2[19,2:6] + data_skills_2[20,2:6] - data_skills_2[21,2:6]
 ```
-##Data Mutate
+
 We then removed the unnecessary rows "AI", "Artificial Intelligence", "NLP" and "Natural Language Processing".
 ```{r}
 data_skills_tidy <- data_skills_2[- c(16, 17, 19, 20), ]
@@ -100,16 +101,27 @@ data_skills_tidy <- data_skills_tidy %>% mutate(Percentage = Total_Mention/sum(T
 
 #Analysis and Visualization
 
+Using ggplot2 package, we created a bar plot that shows the total frequency of each data science skill mentioned in the jobboards, ranked from highest to lowest.
 ```{r}
-
 data_skills_tidy %>% 
   ggplot(aes(x = reorder(Keyword, -Total_Mention), y = Total_Mention, fill = Keyword)) + 
-  geom_bar(stat = "identity") +
-  guides(fill = FALSE) +
-  xlab("Data Science Skills") + ylab("Frequency") +
-  ggtitle("Data Science Skills by Popularity") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  #x-axis are skills ordered by total frequency descending, y-axis is frequency, color filled by different skills
+  geom_bar(stat = "identity") + #using a bar plot
+  guides(fill = FALSE) + #no legend, since the information is redundant
+  xlab("Data Science Skills") + ylab("Total Frequency") + #customize x and y axis title
+  ggtitle("Data Science Skills Ranked by Popularity") + #customize title
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) #rotate the x axis by 60 degrees so each skill is shown properly
 ```
+
+Using treemap package, we create a treemap to show the percentage of each data science skill in respect to total of 1.
+```{r}
+data_skills_tidy %>% treemap(index = "Keyword", #choosing "Keyword"" as categorical variable
+                             vSize = "Percentage", #choosing "Percentage" as quantitative variable (how big is each category)
+                             palette = brewer.pal(17, "Set3"), #select color palette from RColorBrewer
+                             title = "Proportion of Data Science Skills", #customize title
+                             fontsize.title = 14) #change font size of the title
+```
+
 
 ##Word Cloud
 We decided to visually determine the most popular words in our data set. We used Data Science Tutorial YouTube Channel [YouTube.com](https://youtube.com/watch?v=Y2sAH0luu_l&feature=share) as a reference. 
