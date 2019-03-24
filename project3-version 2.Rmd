@@ -94,11 +94,22 @@ data_skills_tidy <- data_skills_2[- c(16, 17, 19, 20), ]
 We mutuated the data frame to generate another new column `Percentage`.
 Percentage was calculated by dividing the total number of each skill by the overall total of all skills.
 ```{r}
-data_skills_tidy %>% mutate(Percentage = Total_Mention/sum(Total_Mention))
+data_skills_tidy <- data_skills_tidy %>% mutate(Percentage = Total_Mention/sum(Total_Mention))
 ```
 
 
 #Analysis and Visualization
+
+```{r}
+
+data_skills_tidy %>% 
+  ggplot(aes(x = reorder(Keyword, -Total_Mention), y = Total_Mention, fill = Keyword)) + 
+  geom_bar(stat = "identity") +
+  guides(fill = FALSE) +
+  xlab("Data Science Skills") + ylab("Frequency") +
+  ggtitle("Data Science Skills by Popularity") +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```
 
 ##Word Cloud
 We decided to visually determine the most popular words in our data set. We used Data Science Tutorial YouTube Channel [YouTube.com](https://youtube.com/watch?v=Y2sAH0luu_l&feature=share) as a reference. 
