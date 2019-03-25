@@ -14,7 +14,7 @@ We were asked to use data to answer the question, "Which are the most valued dat
 
 As a team we used `Github` and `Slack` as our method of team collaboration. Within Github, we *forked*, *edited* and *commited*. Then we utilized the *blame* view to review line-by-line revision history.
 
-![process map](C:/Users/Bobo/Documents/process map.png)
+![process map](WordCloud.png)
 
 #Data
 
